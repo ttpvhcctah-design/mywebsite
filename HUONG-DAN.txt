@@ -1,0 +1,8 @@
+KHÔNG GIAN VĂN HÓA HỒ CHÍ MINH - GÓI TRIỂN KHAI
+
+Nội dung gói: index.html (trang chính), anh/ (ảnh), three.min.js (thư viện 3D, chạy không cần tải từ ngoài).
+Chỉ cần đưa NGUYÊN THƯ MỤC này lên Cloudflare Pages (xem hướng dẫn chi tiết trong tin nhắn).
+
+Lưu ý: không mở bằng cách bấm đúp index.html trên máy (đường dẫn file://), ảnh sẽ không hiện.
+Muốn xem thử trên máy: mở Terminal trong thư mục này, chạy: python -m http.server 8000
+rồi vào http://localhost:8000
