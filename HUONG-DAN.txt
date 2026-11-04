@@ -6,3 +6,5 @@ Chỉ cần đưa NGUYÊN THƯ MỤC này lên Cloudflare Pages (xem hướng d�
 Lưu ý: không mở bằng cách bấm đúp index.html trên máy (đường dẫn file://), ảnh sẽ không hiện.
 Muốn xem thử trên máy: mở Terminal trong thư mục này, chạy: python -m http.server 8000
 rồi vào http://localhost:8000
+
+Thống kê: đã gắn GoatCounter (ttpvhcctah.goatcounter.com). Xem số liệu tại https://ttpvhcctah.goatcounter.com

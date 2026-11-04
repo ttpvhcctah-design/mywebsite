@@ -1,5 +1,8 @@
 <!doctype html>
-<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>html,body{margin:0;padding:0}[hidden]{display:none!important}</style></head><body>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>html,body{margin:0;padding:0}[hidden]{display:none!important}</style>
+<script data-goatcounter="https://ttpvhcctah.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</head><body>
 <title>Không gian văn hóa Hồ Chí Minh</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap">
 <style>
@@ -718,6 +721,7 @@ function openSheet(o){
 }
 function closeSheet(){sheet.classList.remove('open');sheet.setAttribute('aria-hidden','true');}
 $('#sh-close').addEventListener('click',closeSheet);
+$('#sh-body').addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-ev]');if(a){var v=a.getAttribute('data-ev').split('|');track(v[0],v[1]);}});
 (function(){var z=$('#zoom'),zi=$('#zoomimg');
   $('#sh-body').addEventListener('click',function(e){var t=e.target;if(t&&t.classList&&t.classList.contains('zoomable')){zi.src=t.getAttribute('src');zi.alt=t.alt;z.hidden=false;z.scrollTop=0;}});
   function cl(){z.hidden=true;zi.removeAttribute('src');}
@@ -726,6 +730,8 @@ $('#sh-close').addEventListener('click',closeSheet);
 })();
 var FEEDBACK_URL='https://forms.gle/GRUZaPtzdU29a3jf6';  /* Dán đường dẫn Google Forms vào đây khi đã tạo phiếu góp ý */
 var SERVICE_URL='https://dichvucong.gov.vn';
+/* Thống kê sự kiện (GoatCounter, không dùng cookie). Không làm gì nếu trang không nạp GoatCounter */
+function track(p,t){try{if(window.goatcounter&&window.goatcounter.count){window.goatcounter.count({path:'su-kien/'+p,title:t,event:true});}}catch(e){}}
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
 var PAGE_URL='https://nvsk.vnanet.vn/anh-tu-lieu-ve-chu-tich-ho-chi-minh-1-39952.vna';
 function openPhoto(d){
@@ -735,14 +741,14 @@ function openPhoto(d){
   openSheet({kick:(d.year?d.year+(i>=0?'  ·  ':''):'')+(i>=0?'Ảnh '+(i+1)+'/'+PHOTO_LIST.length:''),title:d.title,img:d.file||d.canvas.toDataURL('image/jpeg',0.88),html:'<p>'+esc(d.text)+'</p>',noteHtml:credit,nav:nav});
 }
 function openCollection(i){
-  var c=COLLECTIONS[i];
+  var c=COLLECTIONS[i];track('tu-sach-'+(i+1),'Mở tủ sách: '+c.title);
   var html='<p>'+esc(c.intro)+'</p><ol class="toc">'+c.items.map(function(it,j){return '<li><button type="button" class="tocbtn" data-j="'+j+'"><b>'+esc(it.title)+'</b>'+(it.blurb?'<small>'+esc(it.blurb)+'</small>':'')+'</button></li>';}).join('')+'</ol>';
   openSheet({kick:c.kick,title:c.title,html:html,note:c.note});
   var btns=$('#sh-body').querySelectorAll('.tocbtn');
   for(var k=0;k<btns.length;k++){(function(b){b.addEventListener('click',function(){openArticle(i,+b.getAttribute('data-j'));});})(btns[k]);}
 }
 function openArticle(i,j,direct){
-  var c=COLLECTIONS[i],it=c.items[j],n=c.items.length;
+  var c=COLLECTIONS[i],it=c.items[j],n=c.items.length;track('bai-'+(i+1)+'-'+(j+1),'Đọc: '+it.title);
   var body;
   if(it.infog){body='<figure class="fig"><img class="zoomable" src="'+it.infog+'" alt="'+esc(it.title)+'"><figcaption>Chạm vào hình để phóng to và cuộn xem chi tiết.</figcaption></figure>';}
   else if(it.gallery){body=it.gallery.map(function(g){return '<figure class="fig"><img class="zoomable" src="'+g.src+'" alt="'+esc(g.cap)+'" loading="lazy"><figcaption>'+esc(g.cap)+'</figcaption></figure>';}).join('');}
@@ -754,9 +760,10 @@ function activate(o){
   var u=o.userData;
   if(u.kind==='frame'){openPhoto(u.data);}
   else if(u.kind==='center'){
-    var acts='<a href="'+SERVICE_URL+'" target="_blank" rel="noopener">Dịch vụ công trực tuyến (dichvucong.gov.vn)</a>';
-    acts+='<a class="alt" href="tel:02838920318">Gọi Trung tâm: 028 3892 0318</a>';
-    if(FEEDBACK_URL){acts+='<a class="alt" href="'+FEEDBACK_URL+'" target="_blank" rel="noopener">Góp ý, đánh giá sau khi tham quan</a>';}
+    track('bang-trung-tam','Xem thông tin Trung tâm');
+    var acts='<a data-ev="dich-vu-cong|Bấm Dịch vụ công trực tuyến" href="'+SERVICE_URL+'" target="_blank" rel="noopener">Dịch vụ công trực tuyến (dichvucong.gov.vn)</a>';
+    acts+='<a class="alt" data-ev="goi-dien|Bấm Gọi Trung tâm" href="tel:02838920318">Gọi Trung tâm: 028 3892 0318</a>';
+    if(FEEDBACK_URL){acts+='<a class="alt" data-ev="gop-y|Bấm Góp ý, đánh giá" href="'+FEEDBACK_URL+'" target="_blank" rel="noopener">Góp ý, đánh giá sau khi tham quan</a>';}
     openSheet({kick:'Xã Tân An Hội · Thành phố Hồ Chí Minh',title:'Trung tâm Phục vụ hành chính công',
       html:'<p>Nơi tiếp nhận hồ sơ và trả kết quả giải quyết thủ tục hành chính cho người dân và doanh nghiệp, hoạt động theo mô hình chính quyền địa phương hai cấp.</p>'+
         '<div class="info"><div><b>Địa chỉ</b>77 Tỉnh lộ 8, ấp Củ Chi, xã Tân An Hội, TP. Hồ Chí Minh</div>'+
@@ -781,7 +788,7 @@ $('#helpbtn').addEventListener('click',function(){
 var HASH_OPEN={tieusu:0,chuyenke:1,daoduc:2};
 function hashSpot(){var h=location.hash.slice(1);return SPOTS.some(function(s){return s.id===h;})?h:null;}
 $('#enter').addEventListener('click',function(){
-  entered=true;$('#gate').classList.add('gone');
+  entered=true;$('#gate').classList.add('gone');track('vao-phong','Bước vào phòng');
   var hs=location.hash.slice(1);
   goTo(hashSpot()||(HASH_OPEN.hasOwnProperty(hs)?'tusach':'cua'),1.8);
   if(HASH_OPEN.hasOwnProperty(hs)){setTimeout(function(){openCollection(HASH_OPEN[hs]);},1500);}
